@@ -5,7 +5,7 @@ import datetime
 # GitHub repository details
 owner = "atrixx"
 repo = "agile-final-project"
-milestone = "Sprint 1"
+milestone = "Sprint"
 
 # Get issues from GitHub API
 response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/issues?milestone={milestone}&state=all")
