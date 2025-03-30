@@ -1,0 +1,34 @@
+name: Generate Burndown Chart
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily
+  workflow_dispatch:
+
+jobs:
+  burndown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install matplotlib requests
+
+      - name: Generate Burndown Chart
+        run: |
+          python generate_burndown.py
+
+      - name: Commit and Push Chart
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add burndown_chart.png
+          git commit -m 'Update burndown chart'
+          git push
